@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="enf">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//apis.google.com/js/platform.js?onload=start"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <script src="https://apis.google.com/js/api:client.js"></script>
+  <script>
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '333408925894-u2lb4j03d2b54adue3fd7q0s8n8klied.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+
+  function attachSignin(element) {
+    console.log(element.id);
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+          document.getElementById('name').innerText = "Signed in: " +
+              googleUser.getBasicProfile().getName();
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
+  </script>
+
+	<title>Login</title>
+</head>
+<body>
+
+	<header>
+		<div class="row top-menu">
+			<div class="col-xs-6"><a href="{{url_for('showCategories')}}">Catalog App</a></div>
+			{% if username %}
+			<div class="col-xs-6 text-right"><span class="login">{{username}} - </span><a href="{{url_for('logout')}}"><button class="btn-default button">Logout</button></a></div>
+			{% endif %}
+		</div>
+	</header>
+	<div class="flash">
+	{% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+	</div>
+
+<div class="container2">
+    
+
+    <div class="omb_login">
+    	<h3 class="omb_authTitle">Login or <a href="{{url_for('signup')}}">Sign up</a></h3>
+		<div class="row omb_row-sm-offset-3 omb_socialButtons">
+    	    <div class="col-xs-6 col-sm-3">
+                <a href="#" class="btn btn-lg btn-block omb_btn-facebook" onclick="fb_login();">
+                    <i class="fa fa-facebook"></i>
+                </a>
+	        </div>
+        	<div class="col-xs-6 col-sm-3">
+		        <a href="#" class="btn btn-lg btn-block omb_btn-google" id="gSignInWrapper" onclick="#">
+			        <i class="fa fa-google-plus"></i>
+		        </a>
+	        </div>	
+		</div>
+
+		<div class="row omb_row-sm-offset-3 omb_loginOr">
+			<div class="col-xs-12 col-sm-6">
+				<hr class="omb_hrOr">
+				<span class="omb_spanOr">or</span>
+			</div>
+		</div>
+
+		<div class="row omb_row-sm-offset-3">
+			<div class="col-xs-12 col-sm-6">	
+			    <form class="omb_loginForm" action="" autocomplete="off" method="POST">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<input type="text" class="form-control" name="email" placeholder="email address">
+					</div>
+					<span class="help-block"></span>
+										
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+						<input  type="password" class="form-control" name="password" placeholder="Password">
+					</div>
+
+					<button class="btn btn-lg btn-primary btn-block darkblack" type="submit">Login</button>
+				</form>
+			</div>
+    	</div>    	
+	</div>
+
+	</div>
+
+    <div id="name"></div>
+  <script>startApp();</script>
+
+	<script>
+		function signInCallback(authResult) {
+			if (authResult['code']) {
+				// Hide sign in button now
+				$('#signinButton').attr('style','display: none');
+				$.ajax({
+    				type: 'POST',
+    				url: 'gconnect?state={{STATE}}',
+    				processData: false,
+    				data: authResult['code'],
+    				contentType: 'application/octet-stream; charset=utf-8',
+    				success: function(result) {
+    					if(result){
+    						$('#result').html('Login Succesful!</br>' + result + '</br> Redirecting...')
+    						setTimeout(function() {
+    							window.location.href="/catalog";
+    						}, 4000);
+    					} else if (authResult['error']){
+    						console.log('There was an error: ' + authResult['error']);
+    					}else{
+    						$('#result').html('Failed to make a server-side call. Check your configuration and console.');
+    					}
+    				}
+    			});
+    		}
+    	}
+	</script>
+	<script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appID: "1418561551585693",
+                cookie: true,
+                xfbml: true,
+                version: 'v2.11'
+            });
+            FB.AppEvents.logPageView(); 
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.11&appId=1418561551585693';
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+        //(function(d, s, id){
+        //  var js, fjs = d.getElementsByTagName(s)[0];
+        //  if (d.getElementById(id)) {return;}
+        //  js = d.createElement(s); js.id = id;
+        //  js.src = "https://connect.facebook.net/en_US/sdk.js";
+        //  fjs.parentNode.insertBefore(js, fjs);
+        //  }(document, 'script', 'facebook-jssdk'));
+
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+            });
+        }
+
+        function sendTokenToServer(){
+            var access_token = FB.getAuthResponse()['accessToken'];
+            console.log(access_token)
+            console.log('Welcome! Fetching your information...');
+            FB.api('/me',function(response){
+                console.log('Succesful login for: ' + response.name);
+                $.ajax({
+                    type: 'POST',
+                    url: 'fbconnect?state={{STATE}}',
+                    processData: false,
+                    data: access_token,
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    success: function(result){
+                        if (result){
+                            $('#result').html('Login Succesful!</br>'+result+'</br>Redirecting...')
+                            setTimeout(function(){
+                                window.location.href = "/catalog";
+                            },4000);
+                        } else{
+                            $('#result').html('Failed to make a server-side call. Check your configuration and console');
+                        }
+                    }
+                });
+            });
+        }
+
+        function fb_login(){
+            FB.login(function(response) {
+
+                if (response.authResponse) {
+                    console.log('Welcome!  Fetching your information.... ');
+                    //console.log(response); // dump complete info
+                    access_token = response.authResponse.accessToken; //get access token
+                    user_id = response.authResponse.userID; //get FB UID
+
+                    FB.api('/me', function(response) {
+                        user_email = response.email; //get user email
+                  // you can store this data into your database             
+                    });
+                    sendTokenToServer();
+
+                } else {
+                    //user hit cancel button
+                    console.log('User cancelled login or did not fully authorize.');
+
+                }
+            }, {
+                scope: 'public_profile,email'
+            });
+        }
+        (function() {
+            var e = document.createElement('script');
+            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+            e.async = true;
+            document.getElementById('fb-root').appendChild(e);
+        }());
+
+    </script>
+
+    <script>
+      $('#gSignInWrapper').click(function() {
+        // signInCallback defined in step 6.
+        auth2.grantOfflineAccess().then(signInCallback);
+      });
+    </script>
+
+</body>
+</html>

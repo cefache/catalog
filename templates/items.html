@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="enf">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{category.name}}</title>
+</head>
+<body>
+
+	<header>
+		<div class="row top-menu">
+			<div class="col-xs-6"><a href="{{url_for('showCategories')}}">Catalog App</a></div>
+			{% if not username %}
+			<div class="col-xs-6 text-right"><a href="{{url_for('showLogin')}}"><button class="btn-default button">Login</button></a></div>
+			{% else %}
+			<div class="col-xs-6 text-right"><span class="login">{{username}} - </span><a href="{{url_for('logout')}}"><button class="btn-default button">Logout</button></a></div>
+			{% endif %}
+		</div>
+	</header>
+	<div class = 'flash'>
+		{% with messages = get_flashed_messages() %}
+      	{% if messages %}  
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    	{% endwith %}
+	</div>
+
+	<div class="container row">
+		<article class="col-sm-8 col-md-8 col-sm-push-4 col-md-push-4">
+			<h1>Items in category '{{category.name}}'</h1>
+			{% if username %}
+			<a href = "{{url_for('newItem')}}">Add item</a>
+			{% if user_id == category.user_id %} |
+			<a href = "{{url_for('editCategory', category_id=category.id)}}">Edit category</a> |
+			<a href = "{{url_for('deleteCategory', category_id=category.id)}}">Delete category</a>
+			{% endif %}
+			{% endif %}
+			<div class="items">
+			{% for item in items %}
+				<a class="black" href="{{url_for('showItem',category_id=item.category_id,item_id=item.id)}}">{{item.name}}</a>
+				</br>
+			{% endfor %}
+			</div>
+		</article>
+		<nav class="col-sm-4 col-md-4 col-sm-pull-8 col-md-pull-8 line">
+				<h1>Categories</h1>
+				{% if username %}
+				<a href = "{{url_for('newCategory')}}">Add category</a>
+				{% endif %}
+				<div class="scroll">
+				{% for category in categories %}
+					<a href="{{url_for('showItems',category_id=category.id)}}">{{category.name}}</a>
+					</br>
+				{% endfor %}
+				</div>
+		</nav>
+	</div>
+
+</body>
+</html>

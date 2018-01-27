@@ -1,0 +1,304 @@
+* {
+	font-family: "Helvetica Neue Bold", Roboto, Helvetica, Arial, sans-serif;
+	font-weight: 700;
+
+}
+
+body {
+background-color: rgb(222,222,222);
+
+}
+
+header {
+	background-color: rgb(1,31,64);
+	color: white;
+	font-size: calc(20px + 1vw);
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	min-width: 100%;
+	max-width: 100%;
+
+}
+
+nav {
+	/*float: left;*/
+	/*min-width: 25%;
+	max-width: 30%;*/
+	padding: 2%;
+	padding-top: 0;
+	max-height: 90vh;
+	/*overflow: auto;*/
+
+}
+
+article {
+	padding: 2%;
+	padding-top: 0;
+	/*float: left;*/
+
+}
+
+h1 {
+	padding-left: 0;
+	margin-left: 0;
+	padding-top: 0;
+	margin-top: 0;
+	font-size: calc(16px + 0.8vw);
+	color: rgb(1,31,64);
+	font-weight: bold;
+
+}
+
+h3 {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+.scroll {
+	max-height: 70vh;
+	overflow: auto;
+
+}
+
+.line {
+
+
+}
+
+@media screen and (min-width: 768px) {
+	
+	.line {
+		border-right: 1px solid rgb(222,222,222);
+
+	}
+
+}
+
+.scroll a{
+	color: black;
+
+}
+
+.scroll a:hover{
+	color: black;
+	text-decoration: underline;
+}
+
+.top-menu {
+	color: white;
+
+}
+
+.top-menu a {
+	color: white;
+
+}
+
+.top-menu a:hover{
+	color: white;
+	text-decoration: none;
+
+}
+
+.button {
+	font-size: calc(12px + 0.6vw);
+	border-radius: 4px;
+	border-style: solid;
+
+}
+
+.container {
+	background-color: white;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 5%
+	max-width: 90%;
+	min-width: 90%;
+	width: 90%;
+	margin-top: 28px;
+	padding: 2%;
+	border: solid 1px darkgrey;
+
+}
+
+.container2 {
+	background-color: white;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-bottom: 5%
+	max-width: 70%;
+	min-width: 70%;
+	width: 70%;
+	margin-top: 28px;
+	padding: 2%;
+	border: solid 1px darkgrey;
+
+}
+
+.flash {
+	background-color: #98FB98;
+	width:100%;
+	text-decoration: none;
+
+}
+
+.flash li {
+	list-style-type: none;
+	text-align: center;
+
+}
+
+.grey {
+	color: grey;
+
+}
+
+.grey a {
+	color: grey;
+
+}
+
+.black {
+	color: black;
+
+}
+
+.darkblue {
+	color: rgb(1,31,64);
+
+}
+
+.darkback {
+	background-color: rgb(1,31,64);
+	color: white;
+}
+
+.darkback:hover {
+	background-color: rgb(1,31,64);
+	color: white;
+}
+
+.black:hover {
+	color: black;
+	text-decoration: underline;
+
+}
+
+.login {
+	font-size: calc(12px + 0.6vw);
+}
+
+.form-group {
+	margin: 2%;
+
+}
+
+.glyphicon {
+	margin-right: 10px;
+}
+
+.btn {
+	padding: 2px;
+	padding-right: 5px;
+	margin-top: 10px;
+	border-color: rgb(1,31,64);
+	border-width: 1px;
+	color: rgb(1,31,64);
+}
+.btn:hover {
+	border-color: #9FB80A;
+}
+
+.fbbutton {
+	background-color: white;
+	border: none;
+	padding: 0;
+}
+
+.floatleft {
+	float: left;
+
+}
+
+.inl {
+	float: left;
+	margin-right: 5px;
+
+}
+
+.clearfix {
+	overflow: auto;
+
+}
+
+
+
+
+
+
+@media (min-width: 768px) {
+    .omb_row-sm-offset-3 div:first-child[class*="col-"] {
+        margin-left: 25%;
+    }
+}
+
+.omb_login .omb_authTitle {
+    text-align: center;
+	line-height: 300%;
+}
+	
+.omb_login .omb_socialButtons a {
+	color: white; // In yourUse @body-bg 
+	opacity:0.9;
+}
+.omb_login .omb_socialButtons a:hover {
+    color: white;
+	opacity:1;    	
+}
+.omb_login .omb_socialButtons .omb_btn-facebook {background: #3b5998;}
+.omb_login .omb_socialButtons .omb_btn-twitter {background: #00aced;}
+.omb_login .omb_socialButtons .omb_btn-google {background: #c32f10;}
+
+
+.omb_login .omb_loginOr {
+	position: relative;
+	font-size: 1.5em;
+	color: #aaa;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+.omb_login .omb_loginOr .omb_hrOr {
+	background-color: #cdcdcd;
+	height: 1px;
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+}
+.omb_login .omb_loginOr .omb_spanOr {
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: -0.6em;
+	margin-left: -1.5em;
+	background-color: white;
+	width: 3em;
+	text-align: center;
+}			
+
+.omb_login .omb_loginForm .input-group.i {
+	width: 2em;
+}
+.omb_login .omb_loginForm  .help-block {
+    color: red;
+}
+
+	
+@media (min-width: 768px) {
+    .omb_login .omb_forgotPwd {
+        text-align: right;
+		margin-top:10px;
+ 	}		
+}
