@@ -20,7 +20,7 @@ from functools import wraps
 auth = HTTPBasicAuth()
 app = Flask(__name__)
 
-CLIENT_ID = json.loads(open('client_secrets.json',
+CLIENT_ID = json.loads(open('/var/www/CatalogApp/catalog/client_secrets.json',
                             'r').read())['web']['client_id']
 APPLICATION_NAME = "catalog-application"
 
