@@ -790,32 +790,32 @@ def newCategoryJSON():
     return jsonify({'data': 'category successfully added'})
 
 
-@app.route('/users/JSON')
-def getUsers():
-    """
-    Request on information of all users in database (no administrator login
-    required forn now)
-    Args:
-        -
-    Returns:
-       JSON output with information about all users
-    """
-    users = session.query(User).all()
-    return jsonify(Users=[i.serialize for i in users])
+# @app.route('/users/JSON')
+# def getUsers():
+#     """
+#     Request on information of all users in database (no administrator login
+#     required forn now)
+#     Args:
+#         -
+#     Returns:
+#        JSON output with information about all users
+#     """
+#     users = session.query(User).all()
+#     return jsonify(Users=[i.serialize for i in users])
 
 
-@app.route('/user/<email>/JSON')
-def getUser(email):
-    """
-    Request on information of one user in database (no administrator login
-    required forn now)
-    Args:
-        email (string)
-    Returns:
-       JSON output with information about the user in question
-    """
-    users = session.query(User).filter_by(email=email).first()
-    return jsonify(users.serialize)
+# @app.route('/user/<email>/JSON')
+# def getUser(email):
+#     """
+#     Request on information of one user in database (no administrator login
+#     required forn now)
+#     Args:
+#         email (string)
+#     Returns:
+#        JSON output with information about the user in question
+#     """
+#     users = session.query(User).filter_by(email=email).first()
+#     return jsonify(users.serialize)
 
 app.secret_key = 'super_secret_key'
 if __name__ == '__main__':
